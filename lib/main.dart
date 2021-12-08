@@ -31,7 +31,8 @@ class MyApp2 extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp2> {
-  String activity = "...";
+  String activity = "loading...";
+  bool isButtonActive = false;
 
   @override
   void initState() {
@@ -41,6 +42,14 @@ class MyAppState extends State<MyApp2> {
   }
 
   RetrieveData() async {
+    activity = "loading...";
+    Future.delayed(const Duration(milliseconds: 3500), () {
+      // Here you can write your code
+
+      setState(() {
+        isButtonActive = true;
+      });
+    });
     var url = Uri.https('www.boredapi.com', '/api/activity/', {'q': '{http}'});
 
     // Await the http get response, then decode the json-formatted response.
@@ -74,9 +83,12 @@ class MyAppState extends State<MyApp2> {
                 style: ElevatedButton.styleFrom(
                   textStyle: const TextStyle(fontSize: 20),
                 ),
-                onPressed: () {
-                  RetrieveData();
-                },
+                onPressed: isButtonActive
+                    ? () {
+                        RetrieveData();
+                        setState(() => isButtonActive = false);
+                      }
+                    : null,
                 child: const Text('Still bored?'),
               ),
               ElevatedButton(

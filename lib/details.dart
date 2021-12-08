@@ -13,7 +13,7 @@ class _DetailPageState extends State<DetailPage> {
           title: Text("Detail Page"),
         ),
         body: Center(
-          child: Text('Welcome to Detail Page'),
+          child: Text('Made by Boris ❤️'),
         ));
   }
 }
